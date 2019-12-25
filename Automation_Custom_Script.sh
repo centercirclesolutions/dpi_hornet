@@ -74,9 +74,9 @@ fi
 #Linking binary file
 ln -s $HORNET_SRC/hornet $HORNET_BIN/hornet
 
-if [ -f /boot/conf.json ]; then
+if [ -f /boot/config.json ]; then
 	echo -e "Found the user supplied config.json file in /boot directory"
-	cp -f /boot/conf.json $HORNET_BIN/config.json
+	cp -f /boot/config.json $HORNET_BIN/config.json
 else
 	echo -e "Using the config.json file from github... ${aCOLOUR[3]}please edit after restart$COLOUR_RESET"
 	cp $HORNET_SRC/config.json $HORNET_BIN/config.json
@@ -159,3 +159,6 @@ alias hnu='systemctl start hornet'
 alias hns='systemctl status hornet'
 alias hnl='journalctl -u hornet | less'
 EOF4
+
+ 
+ 
