@@ -86,6 +86,9 @@ fi
 chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC
 
 #Setup SHR remount on startup
+sed -i '/^tmpfs \/tmp tmpfs/s/^/#/' /etc/fstab
+ 
+
 cat > "/var/lib/dietpi/postboot.d/remount_shm" <<EOF1
 #!/bin/bash
 #Remount shm with a more reasonable size
@@ -157,7 +160,10 @@ alias hnr='systemctl restart hornet'
 alias hnd='systemctl stop hornet'
 alias hnu='systemctl start hornet'
 alias hns='systemctl status hornet'
-alias hnl='journalctl -u hornet | less'
+alias hnl='journalctl -u hornet'
+alias hnlf='hnl -f'
+alias hnsnap='wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin'
+alias hnrecover='hnd && rm -ri $HORNET_BIN/mainnetdb/* && hnsnap && hnu'
 EOF4
 
  
