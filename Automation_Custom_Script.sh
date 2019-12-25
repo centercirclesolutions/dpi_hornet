@@ -59,13 +59,13 @@ chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC
 echo "Getting the latest version of Hornet..."
 HORNETURL=`wget -q -nv -O- https://api.github.com/repos/gohornet/hornet/releases/latest 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("Linux_ARM.")) | .browser_download_url'`
 echo "Downloading: $HORNETURL"
-wget -Nqc --show-progress -O "/tmp/hornet-latest.tar.gz" $HORNETURL
+wget -Nqc --show-progress --progress=bar:force -O "/tmp/hornet-latest.tar.gz" $HORNETURL
 echo "Unpacking..."
 tar -xzf "/tmp/hornet-latest.tar.gz" -C $HORNET_SRC --strip-components 1
 rm /tmp/hornet-latest.tar.gz
 
 echo -e "Downloading the latest snapshot file... ${aCOLOUR[0]}(this might take a bit)$COLOUR_RESET"
-wget -Nqc --show-progress -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin
+wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin
 
 if [ ! -f  "$HORNET_BIN/latest-export.gz.bin" ]; then
 	echo -e "There was a problem downloading the snapshot. ${aCOLOUR[3]}You will need to download the snapshot file after the restart$COLOUR_RESET"
