@@ -9,7 +9,7 @@
 </div>  
 
 ### 2) Flash to SD card
-![Test](/img/SavetoSDCard.png?raw=true)
+![](/img/SavetoSDCard.png?raw=true)
 
 ### 3) Download the dietpi.txt file and customize
 
