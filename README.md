@@ -34,11 +34,13 @@ Dietpi will have a default networking option active at startup. Enable either Et
 ```bash
 25 AUTO_SETUP_NET_ETHERNET_ENABLED=1
 26 AUTO_SETUP_NET_WIFI_ENABLED=0
-OR
+```
+###### OR
+```bash
 25 AUTO_SETUP_NET_ETHERNET_ENABLED=0
 26 AUTO_SETUP_NET_WIFI_ENABLED=1
 ```
-###### Add Wifi credentials if Wifi is enabled
+##### Add Wifi credentials if Wifi is enabled
 Edit the dietpi-wifi.txt file in the same root directory and add your SSID name and password
 ```bash
 1 #---------------------------------------------------------------
@@ -47,4 +49,11 @@ Edit the dietpi-wifi.txt file in the same root directory and add your SSID name 
 4 aWIFI_SSID[0]='myrouter'
 5 #       Key options: If no key (open), leave this blank
 6 aWIFI_KEY[0]='secretpassword'
+```
+##### Line 101 - Set initial installed Password (Best to leave this and change after install)
+```bash
+# Global Password to be applied for the system
+# - Affects user "root" and "dietpi" login passwords, and, all software installed by dietpi-software, that requires a login password
+# - WARN: Passwords with any of the following characters are not supported: \"$
+AUTO_SETUP_GLOBAL_PASSWORD=hornet
 ```
