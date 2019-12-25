@@ -89,11 +89,11 @@ chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC
 sed -i '/^tmpfs \/tmp tmpfs/s/^/#/' /etc/fstab
  
 
-cat > "/var/lib/dietpi/postboot.d/remount_shm" <<EOF1
+#cat > "/var/lib/dietpi/postboot.d/remount_shm" <<EOF1
 #!/bin/bash
 #Remount shm with a more reasonable size
-mount -o remount, size=100M /run/shm
-EOF1
+#mount -o remount, size=100M /run/shm
+#EOF1
 
 echo "Setting up Service"
 cat > $SERVICE_FILE <<EOF2
@@ -163,7 +163,7 @@ alias hns='systemctl status hornet'
 alias hnl='journalctl -u hornet'
 alias hnlf='hnl -f'
 alias hnsnap='wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin'
-alias hnrecover='hnd && rm -ri $HORNET_BIN/mainnetdb/* && hnsnap && hnu'
+alias hnrecover='hnd && rm -r $HORNET_BIN/mainnetdb/* && hnsnap && hnu'
 EOF4
 
  
