@@ -122,14 +122,16 @@ echo "Enabeling Services... Hornet Service will start on reboot"
 systemctl daemon-reload 
 systemctl enable hornet.service
  
- cat >> ~/.bashrc <<EOF3
 
+tee -a ~/.bashrc /home/dietpi/.bashrc <<EOF3
+
+#Include alias file if it exists
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 EOF3
 
- cat >> ~/.bash_aliases <<EOF4
+tee -a ~/.bash_aliases /home/dietpi/.bash_aliases <<EOF4
 #bash essentials
 export LS_OPTIONS='--color=auto'
 eval "`dircolors`"
@@ -163,7 +165,7 @@ alias hns='systemctl status hornet'
 alias hnl='journalctl -u hornet'
 alias hnlf='hnl -f'
 alias hnsnap='wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin'
-alias hnrecover='hnd && rm -r $HORNET_BIN/mainnetdb/* && hnsnap && hnu'
+alias hnrepair='hnd && rm -r $HORNET_BIN/mainnetdb/* && hnsnap && hnu'
 EOF4
 
  
