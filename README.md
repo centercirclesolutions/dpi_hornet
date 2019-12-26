@@ -34,6 +34,3 @@ Your Pi will reboot and you can log in with User: root and the Password in the d
 | hnd        | Hornet Node Down (Stop)                                                             |
 | hnsnap     | Hornet Node Download new Snapshot file (No D/L if not new)                          |
 | hnrepair   | Hornet Node Repair - Remove corrupt DB (Stop / remove DB / D/L Snapshot / Restart)  |
-
-### Extras
-I've added some extra commands to help manage the server. These are no means as extensive as provided by the playbook
