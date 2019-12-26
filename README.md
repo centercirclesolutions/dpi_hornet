@@ -10,7 +10,7 @@
 #### My Favorite ([Rufus](https://rufus.ie/))
 
 ### 3. Download and customize dietpi.txt 
-Download the dietpi.txt file from this repository and prepare / customize it for your Raspberry Pi
+Download the dietpi.txt file from this repository and prepare / customize it for your Raspberry Pi.<br>
 For more info see: [Preparing the dietpi.txt File](CustomizeDietPiFile.md)
 
 ### 4. Replace dietpi.txt on the SD card with your customized DietPi.txt file
