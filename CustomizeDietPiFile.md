@@ -1,4 +1,5 @@
 # Customize DietPi.txt
+DietPi uses a configuration file named dietpi.txt. This file contains all the initial configuration options that DietPi will use when setting up the Operating System. I have provided a template dietpi.txt file that will support hornet installation but there are other configurations that differ by country and region or network situation. Please review the blow options for more information on what my be necessary to change. 
 
 ##### Line 13 - Set Locale
 ```bash
