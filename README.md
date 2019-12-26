@@ -22,7 +22,7 @@ For more info see: [Preparing Hornet config.json file](CustomizeDietPiFile.md)
 
 ### 7. Insert SD Card into Raspberry Pi and turn it on.
 
-### Done!
+### 8. Done!
 Your Pi will reboot and you can log in with User: root and the Password in the dietpi.txt file. Remember to hange the password for both root and dietpi users. Hornet will start on boot and you can check the status and other operations with the following commands:
 
 | Command    | Description                                                                         |
@@ -35,3 +35,9 @@ Your Pi will reboot and you can log in with User: root and the Password in the d
 | hnd        | Hornet Node Down (Stop)                                                             |
 | hnsnap     | Hornet Node Download new Snapshot file (No D/L if not new)                          |
 | hnrepair   | Hornet Node Repair - Remove corrupt DB (Stop / remove DB / D/L Snapshot / Restart)  |
+
+### 9. Run DietPi from external SSD
+Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automoate this. 
+
+**Provide Examples TBD **
+
