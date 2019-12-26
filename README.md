@@ -1,59 +1,43 @@
 # Hornet Autoinstallation for DietPi
 
-## Instruction
+## Instructions
 
+### 1. Download DietPi for Raspberry Pi.
+[DietPi_RPi-ARMv6-Buster.7z](https://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Buster.7z) (This image will work for both Pi 3 & 4)
 
-### 1) Download DietPi for Respberry Pi (same for both 3 / 4)
-<div style="text-align: center;">
-  <a target="_blank" href="https://dietpi.com/#download"><img width="60px" src="https://dietpi.com/images/dietpi-logo_150.png" alt="DietPi"></a>
-</div>  
+### 2. Flash to SD card.
+**Extract** the `DietPi_RPi-ARMv6-Buster.img file` and use your favorite imaging tool to flash the image to your SD card
+#### My Favorite ([Rufus](https://rufus.ie/))
 
-### 2) Flash to SD card
-![Test](/img/SavetoSDCard.png?raw=true)
+### 3. Download and customize dietpi.txt.
+Download the dietpi.txt file from this repository and prepare / customize it for your Raspberry Pi.<br>
+For more info see: [Preparing the dietpi.txt File](CustomizeDietPiFile.md)
 
-### 3) Download the dietpi.txt file and customize
+### 4. Replace dietpi.txt on the SD card with your customized DietPi.txt file.
 
-##### Line 13 - Set Locale
-```bash
-11 ##### Language/Regional Options #####
-12 # Locale: eg: "en_GB.UTF-8" / "de_DE.UTF-8" | One entry and UTF-8 ONLY!
-13 AUTO_SETUP_LOCALE=en_US.UTF-8
-```
-##### Line 16 - Set Keyboard Layout
-```bash
-15 # Keyboard Layout eg: "gb" / "us" / "de" / "fr"
-16 AUTO_SETUP_KEYBOARD_LAYOUT=us
-```
-##### Line 19 - Set Timezone
-```bash
-18 # Timezone eg: "Europe/London" / "America/New_York" | Full list (TZ*): https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-19 AUTO_SETUP_TIMEZONE=America/New_York
-```
-##### Line 25 & 26 - Enable Network Options
-Dietpi will have a default networking option active at startup. Enable either Ethernet or Wifi.If you choose Wifi then there is an additional file to edit to add the SSID and key for your Wifi network
-```bash
-25 AUTO_SETUP_NET_ETHERNET_ENABLED=1
-26 AUTO_SETUP_NET_WIFI_ENABLED=0
-```
-###### OR
-```bash
-25 AUTO_SETUP_NET_ETHERNET_ENABLED=0
-26 AUTO_SETUP_NET_WIFI_ENABLED=1
-```
-##### Add Wifi credentials if Wifi is enabled
-Edit the dietpi-wifi.txt file in the same root directory and add your SSID name and password
-```bash
-1 #---------------------------------------------------------------
-2 # - Entry 0
-3 #       WiFi SSID (Case Sensitive)
-4 aWIFI_SSID[0]='myrouter'
-5 #       Key options: If no key (open), leave this blank
-6 aWIFI_KEY[0]='secretpassword'
-```
-##### Line 101 - Set initial installed Password (Best to leave this and change after install)
-```bash
-# Global Password to be applied for the system
-# - Affects user "root" and "dietpi" login passwords, and, all software installed by dietpi-software, that requires a login password
-# - WARN: Passwords with any of the following characters are not supported: \"$
-AUTO_SETUP_GLOBAL_PASSWORD=hornet
-```
+### 5. Prepare Hornet config.json file.
+For more info see: [Preparing Hornet config.json file](CustomizeDietPiFile.md)
+
+### 6. Copy config.json to SD card (Base Directory)
+
+### 7. Insert SD Card into Raspberry Pi and turn it on.
+
+### 8. Done!
+Your Pi will reboot and you can log in with User: root and the Password in the dietpi.txt file. Remember to hange the password for both root and dietpi users. Hornet will start on boot and you can check the status and other operations with the following commands:
+
+| Command    | Description                                                                         |
+| ---------- |-------------------------------------------------------------------------------------|
+| hns        | Hornet Node Status                                                                  |
+| hnl        | Hornet Node Log                                                                     |
+| hnlf       | Hornet Node Log Follow - shows the log continously (^c to exit)                     |
+| hnr        | Hornet Node Restart                                                                 |
+| hnu        | Hornet Node Up (Start)                                                              |
+| hnd        | Hornet Node Down (Stop)                                                             |
+| hnsnap     | Hornet Node Download new Snapshot file (No D/L if not new)                          |
+| hnrepair   | Hornet Node Repair - Remove corrupt DB (Stop / remove DB / D/L Snapshot / Restart)  |
+
+### 9. Run DietPi from external SSD
+Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automoate this. 
+
+**Provide Examples TBD**
+
