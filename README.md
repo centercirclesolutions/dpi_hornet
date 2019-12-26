@@ -43,4 +43,4 @@ Your Pi will reboot and you can log in with User: root or dietpi and the Passwor
 Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automoate this. 
 
 **Provide Examples TBD**
-
+`dietpi-drive_manager`
