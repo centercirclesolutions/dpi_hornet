@@ -9,7 +9,8 @@
 **Extract** the `DietPi_RPi-ARMv6-Buster.img file` and use your favorite imaging tool to flash the image to your SD card
 #### My Favorite ([Rufus](https://rufus.ie/))
 
-### 3. Download the dietpi.txt file from this repository and prepare / customize it for your Raspberry Pi
+### 3. Download and customize dietpi.txt 
+Download the dietpi.txt file from this repository and prepare / customize it for your Raspberry Pi
 For more info see: [Preparing the dietpi.txt File](CustomizeDietPiFile.md)
 
 ### 4. Replace dietpi.txt on the SD card with your customized DietPi.txt file
