@@ -198,8 +198,8 @@ alias nowdate='date +"%d-%m-%Y"'
 alias vi=vim
 alias svi='sudo vi'
 alias psum='ss -s'
-alias pdet='ss -aute'
-alias pdetn='ss -auter'
+alias ports='ss -aute'
+alias portsn='ss -auter'
 alias aliasf='declare -F'
 
 #apt
