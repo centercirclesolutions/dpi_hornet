@@ -45,7 +45,7 @@ Your Pi will reboot and you can log in with User: root or dietpi and the Passwor
 | hn-addnb     | Hornet Node Add Neighbor (API)                                                      |
 | hn-remnb     | Hornet Node Remove Neighbor (API)                                                   | 
 | hn-update    | Update Hornet: `hn-update [-fr]` <br> -f Update even if same version<br> -r Restart Hornet after update|
-| hn-profile   | Update Hornet profile: `hn-profile 8gb` ( you will need to restart the server for this to take effect|
+| hn-profile   | Update Hornet profile: `hn-profile 2gb` ( you will need to restart the server for this to take effect|
 
 ### 9. Run DietPi from external SSD
 Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automoate this. 
