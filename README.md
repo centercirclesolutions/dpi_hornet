@@ -1,4 +1,5 @@
 # Hornet Auto-installation for DietPi
+This is an attempt at automating the installation of Hornet for the Raspberry Pi (3 and 4) using DietPi. It is not using Docker or the playbook as it is focusing on providing a minimal install and memory footprint to run Hornet while still provindg some tools to manage the Hornet Node. Below are the instructions to install the software. During installation DietPi will load the latest Automation_Custom_Script.sh from GitHib and run it only during the initial installation. All scripts and configurations are in this repo and available for you to review. If you find any issues please add an issue (or feature) You may PM me (Dave [EF]) on Discord but since I am timzone challanged I may take several hours to get back on issues. Feel free to provide Updates and Pull requests as well.  
 
 ## Instructions
 
