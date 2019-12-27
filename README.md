@@ -1,4 +1,4 @@
-# Hornet Autoinstallation for DietPi
+# Hornet Auto-installation for DietPi
 
 ## Instructions
 
