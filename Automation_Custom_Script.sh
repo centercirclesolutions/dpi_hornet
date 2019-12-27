@@ -221,6 +221,7 @@ alias update='sudo apt-get update && sudo apt-get upgrade'
 
 #Hornet admin
 alias hn-='alias | grep --color=never "alias hn-"; declare -F | grep --color=never "declare -f hn-"'
+alias hn-v='$HORNET_BIN/hornet -v'
 alias hn-rs='sudo systemctl restart hornet'
 alias hn-dn='sudo systemctl stop hornet'
 alias hn-up='sudo systemctl start hornet'
