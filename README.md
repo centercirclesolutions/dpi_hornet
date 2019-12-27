@@ -17,7 +17,7 @@ For more info see: [Preparing the dietpi.txt File](CustomizeDietPiFile.md).
 Copy the customized dietpi.txt file to the base directory of the SD card (Named boot) you will be asked if you want to replace the existing file and you should.
 
 ### 5. Prepare Hornet config.json file.
-For more info see: [Preparing Hornet config.json file](CustomizeDietPiFile.md).
+For more info see: [Preparing Hornet config.json file](CustomizeConfigJSON.md).
 
 ### 6. Copy config.json to SD card 
 Copy the config.json file that contains your hronet neighbors and other configurations to the base directory of the SD Card (Named boot).
@@ -42,7 +42,7 @@ Your Pi will reboot and you can log in with User: root or dietpi and the Passwor
 | hn-inf       | Hornet Node Information (API)                                                       |
 | hn-infn      | Hornet Node Neighbor Information                                                    | 
 | hn-addnb     | Hornet Node Add Neighbor (API)                                                      |
-| hn-remdb     | Hornet Node Remove Neighbor (API)                                                   | 
+| hn-remnb     | Hornet Node Remove Neighbor (API)                                                   | 
 | hn-update    | Update Hornet: `hn-update [-fr]` <br> -f Update even if same version<br> -r Restart Hornet after update|
 
 ### 9. Run DietPi from external SSD
