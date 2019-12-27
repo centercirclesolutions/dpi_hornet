@@ -86,14 +86,9 @@ fi
 chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC
 
 #Setup SHR remount on startup
-sed -i '/^tmpfs \/tmp tmpfs/s/^/#/' /etc/fstab
+#sed -i '/^tmpfs \/tmp tmpfs/s/^/#/' /etc/fstab
  
-
-#cat > "/var/lib/dietpi/postboot.d/remount_shm" <<EOF1
-#!/bin/bash
-#Remount shm with a more reasonable size
-#mount -o remount, size=100M /run/shm
-#EOF1
+sed -i -- '/tmpfs \/DietPi/itmpfs /dev/shm tmpfs defaults,size=100M 0 0' /etc/fstab
 
 echo "Setting up Service"
 cat > $SERVICE_FILE <<EOF2
@@ -158,14 +153,14 @@ alias updatey="sudo apt-get --yes"
 alias update='sudo apt-get update && sudo apt-get upgrade'
 
 #Hornet admin
-alias hnr='systemctl restart hornet'
-alias hnd='systemctl stop hornet'
-alias hnu='systemctl start hornet'
-alias hns='systemctl status hornet'
-alias hnl='journalctl -u hornet'
+alias hnr='sudo systemctl restart hornet'
+alias hnd='sudo systemctl stop hornet'
+alias hnu='sudo systemctl start hornet'
+alias hns='sudo systemctl status hornet'
+alias hnl='sudo journalctl -u hornet'
 alias hnlf='hnl -f'
-alias hnsnap='wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin'
-alias hnrepair='hnd && rm -r $HORNET_BIN/mainnetdb/* && hnsnap && hnu'
+alias hnsnap='sudo wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin; chown hornet:hornet $HORNET_BIN/latest-export.gz.bin'
+alias hnrepair='hnd; sudo rm -r $HORNET_BIN/mainnetdb/*; hnsnap; hnu'
 EOF4
 
  
