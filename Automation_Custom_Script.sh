@@ -119,6 +119,24 @@ systemctl enable hornet.service
  
 
 tee -a ~/.bashrc /home/dietpi/.bashrc <<EOF3
+hn-rmnb() {
+    #validate IP and port then remove from hornet via API
+    if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "removeNeighbors", "uris": [ "tcp://'$1'" ] }' | jq --tab
+    else
+        echo "$1 is not a valid IP:Port. Please enter a valid IP address and port e.g.: 192.0.0.1:15600"
+    fi
+}
+
+hn-addnb() {
+    #validate IP and port then remove from hornet via API
+    if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "addNeighbors", "uris": [ "tcp://'$1'" ] }' | jq --tab
+    else
+        echo "$1 is not a valid IP:Port. Please enter a valid IP address and port e.g.: 192.0.0.1:15600"
+    fi
+}
+
 
 #Include alias file if it exists
 if [ -f ~/.bash_aliases ]; then
@@ -145,7 +163,10 @@ alias nowtime=now
 alias nowdate='date +"%d-%m-%Y"'
 alias vi=vim
 alias svi='sudo vi'
-alias ports='netstat -tulanp'
+alias psum='ss -s'
+alias pdet='ss -aute'
+alias pdetn='ss -auter'
+alias aliasf='declare -F'
 
 #apt
 alias apt-get="sudo apt-get"
@@ -161,6 +182,8 @@ alias hnl='sudo journalctl -u hornet'
 alias hnlf='hnl -f'
 alias hnsnap='sudo wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin; chown hornet:hornet $HORNET_BIN/latest-export.gz.bin'
 alias hnrepair='hnd; sudo rm -r $HORNET_BIN/mainnetdb/*; hnsnap; hnu'
+alias hn-info='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNodeInfo"}'\'' |  jq --tab'
+alias hn-nb='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNeighbors"}'\'' |  jq --tab'
 EOF4
 
  
