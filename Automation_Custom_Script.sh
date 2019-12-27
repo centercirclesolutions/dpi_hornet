@@ -54,6 +54,8 @@ echo "Add 'hornet' system user/group and create directories"
 adduser --system --group --no-create-home $HORNETUSER
 mkdir $HORNET_SRC
 mkdir $HORNET_BIN
+mkdir $HORNET_BIN/config_history
+
 chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC
  
 echo "Getting the latest version of Hornet..."
@@ -142,6 +144,19 @@ hn-addnb() {
     fi
 }
 
+hn-profile () {
+
+	VALID_PROFILES=("8gb" "4gb" "2gb" "1gb" "auto")
+
+	if [[ " ${VALID_PROFILES[@]} " =~ " ${1} " ]]; then
+			jq --arg profile "$1" '.useProfile = $profile' $HORNET_BIN/config.json > /tmp/config.json && mv $HORNET_BIN/config.json $HORNET_BIN/config_history/config.json_$(date +"%Y%m%d_%H%M%S") && mv /tmp/config.json $HORNET_BIN/config.json
+	else
+			echo "usage: hn-profile { 8gb | 4gb | 2gb | 1gb | auto }  (Use one of the valid hornet profiles)"
+	fi
+
+}
+
+
 hn-update() {
     [[ "$1$2" =~ [fF] ]] && FORCE="true"
     [[ "$1$2" =~ [rR] ]] && RESTART="true"
@@ -156,13 +171,10 @@ hn-update() {
         echo "You already have the latest version: $LATESTHORNET Exiting"
         return 0
     else
-        touch "$HORNET_SRC/$LATESTHORNET"
-
         echo "Downloading: $HORNETURL"
         wget -Nqc --show-progress --progress=bar:force -O "/tmp/hornet-latest.tar.gz" $HORNETURL
         echo "Unpacking..."
-        tar -xzf "/tmp/hornet-latest.tar.gz" -C $HORNET_SRC --strip-components 1
-        rm /tmp/hornet-latest.tar.gz
+        tar -xzf "/tmp/hornet-latest.tar.gz" -C $HORNET_SRC --strip-components 1 && rm /tmp/hornet-latest.tar.gz && touch "$HORNET_SRC/$LATESTHORNET"
 
        if [[ $RESTART ]]; then
            sudo systemctl restart hornet
@@ -208,6 +220,7 @@ alias updatey="sudo apt-get --yes"
 alias update='sudo apt-get update && sudo apt-get upgrade'
 
 #Hornet admin
+alias hn-='alias | grep --color=never "alias hn-"; declare -F | grep --color=never "declare -f hn-"'
 alias hn-rs='sudo systemctl restart hornet'
 alias hn-dn='sudo systemctl stop hornet'
 alias hn-up='sudo systemctl start hornet'
