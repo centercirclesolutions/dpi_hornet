@@ -1,4 +1,9 @@
 # Hornet Auto-installation for DietPi
+This is an attempt at automating the installation of Hornet for the Raspberry Pi (3 and 4) using DietPi. It is not using Docker or the Nuriel's awesome hornet-playbook as it focuses on providing a minimal install and memory footprint to run Hornet while still providing some tools to manage the Hornet Node. 
+
+Below are the instructions to install the software. During installation DietPi will load the latest (Automation_Custom_Script.sh) from this repository and run it only during the initial installation.
+
+All scripts and config files used (`Automation_Custom_Script.sh` and `dietpi.txt`) are in this repo and available for you to review. If you find any issues please add an issue (or feature). You may PM me  Dave [EF]  on Discord but since I am timzone challanged I may take several hours to get back on issues. Feel free to provide Updates and Pull requests as well.
 
 ## Instructions
 
@@ -17,7 +22,7 @@ For more info see: [Preparing the dietpi.txt File](CustomizeDietPiFile.md).
 Copy the customized dietpi.txt file to the base directory of the SD card (Named boot) you will be asked if you want to replace the existing file and you should.
 
 ### 5. Prepare Hornet config.json file.
-For more info see: [Preparing Hornet config.json file](CustomizeDietPiFile.md).
+For more info see: [Preparing Hornet config.json file](CustomizeConfigJSON.md).
 
 ### 6. Copy config.json to SD card 
 Copy the config.json file that contains your hronet neighbors and other configurations to the base directory of the SD Card (Named boot).
@@ -30,6 +35,7 @@ Your Pi will reboot and you can log in with User: root or dietpi and the Passwor
 
 | Command      | Description                                                                         |
 | ------------ |-------------------------------------------------------------------------------------|
+| hn-          | List all Hornet Node commands   |
 | hn-st        | Hornet Node Status                                                                  |
 | hn-lg        | Hornet Node Log                                                                     |
 | hn-lgf       | Hornet Node Log Follow - shows the log continously (^c to exit)                     |
@@ -42,8 +48,9 @@ Your Pi will reboot and you can log in with User: root or dietpi and the Passwor
 | hn-inf       | Hornet Node Information (API)                                                       |
 | hn-infn      | Hornet Node Neighbor Information                                                    | 
 | hn-addnb     | Hornet Node Add Neighbor (API)                                                      |
-| hn-remdb     | Hornet Node Remove Neighbor (API)                                                   | 
+| hn-remnb     | Hornet Node Remove Neighbor (API)                                                   | 
 | hn-update    | Update Hornet: `hn-update [-fr]` <br> -f Update even if same version<br> -r Restart Hornet after update|
+| hn-profile   | Update Hornet profile: `hn-profile 2gb` ( you will need to restart the server for this to take effect|
 
 ### 9. Run DietPi from external SSD
 Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automoate this. 
