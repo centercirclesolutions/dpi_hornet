@@ -45,3 +45,5 @@ Currently there are several Plugins you can enable
 * "Monitor" - Tangle Monitor Front end running on Hornet Server (Port 4434) May require additional setup
 * "Spammer" - Spammer running on the node (Currently not interactive)
 * "ZeroMQ" - ZMQ interface for server stats and such
+
+I have my node running without these plugins enabled. ZMQ currently has an issue that the ZMQ team has yet to fix, Spammer is not viable on the Pi without hardware assistance, and Monitor I believe requires and additional download and changing of the path in the profile.
