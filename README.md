@@ -28,16 +28,21 @@ The DietPi installation should take about 10 to 20 minutes depending on your net
 ### 8. Done!
 Your Pi will reboot and you can log in with User: root or dietpi and the Password in the dietpi.txt file. Remember to hange the password for both root and dietpi users. Hornet will start on boot and you can check the status and other operations with the following commands:
 
-| Command    | Description                                                                         |
-| ---------- |-------------------------------------------------------------------------------------|
-| hns        | Hornet Node Status                                                                  |
-| hnl        | Hornet Node Log                                                                     |
-| hnlf       | Hornet Node Log Follow - shows the log continously (^c to exit)                     |
-| hnr        | Hornet Node Restart                                                                 |
-| hnu        | Hornet Node Up (Start)                                                              |
-| hnd        | Hornet Node Down (Stop)                                                             |
-| hnsnap     | Hornet Node Download new Snapshot file (No D/L if not new)                          |
-| hnrepair   | Hornet Node Repair - Remove corrupt DB (Stop / remove DB / D/L Snapshot / Restart)  |
+| Command      | Description                                                                         |
+| ------------ |-------------------------------------------------------------------------------------|
+| hn-st        | Hornet Node Status                                                                  |
+| hn-lg        | Hornet Node Log                                                                     |
+| hn-lgf       | Hornet Node Log Follow - shows the log continously (^c to exit)                     |
+| hn-rs        | Hornet Node Restart                                                                 |
+| hn-up        | Hornet Node Up (Start)                                                              |
+| hn-dn        | Hornet Node Down (Stop)                                                             |
+| hn-snap      | Hornet Node Download new Snapshot file (No D/L if not new)                          |
+| hn-rmdb      | Hornet Node Remove Database (use when corrupted)                                    |
+| hn-repair    | Hornet Node Repair - Remove corrupt DB (Stop / remove DB / D/L Snapshot / Restart)  |
+| hn-inf       | Hornet Node Information (API)                                                       |
+| hn-infn      | Hornet Node Neighbor Information                                                    | 
+| hn-addnb     | Hornet Node Add Neighbor (API)                                                      |
+| hn-remdb     | Hornet Node Remove Neighbor (API)                                                   | 
 
 ### 9. Run DietPi from external SSD
 Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automoate this. 
