@@ -64,7 +64,7 @@ AUTO_UNMASK_LOGIND=0
 
 ######### HORNET ###########
 HORNET_BRANCH=beta    
-AUTO_SETUP_CUSTOM_SCRIPT_EXEC="https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/$HORNET_BRANCH/Automation_Custom_Script.sh $HORNET_BRANCH"
+AUTO_SETUP_CUSTOM_SCRIPT_EXEC="https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/beta/Automation_Custom_Script.sh beta"
 ############################
 
 ##### Software Options #####

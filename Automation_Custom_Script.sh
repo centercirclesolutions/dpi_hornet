@@ -10,6 +10,8 @@ else
 	BRANCH="master"
 fi
 
+echo "HORNET_BRANCH=$HORNET_BRANCH"
+
 BRANCH=
 COLOUR_RESET='\e[0m'
 aCOLOUR=(
