@@ -127,20 +127,20 @@ export HORNET_BIN="$HORNET_BIN"
 ## Hornet Node Remove Neighbor
 hn-rmnb() {
     #validate IP and port then remove from hornet via API
-    if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
-        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "removeNeighbors", "uris": [ "tcp://'$1'" ] }' | jq --tab
+    if [[ \$1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+\$ ]]; then
+        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "removeNeighbors", "uris": [ "tcp://'\$1'" ] }' | jq --tab
     else
-        echo "$1 is not a valid IP:Port. \n\nUsage: hn-rmnb 192.0.0.1:15600"
+        echo "\$1 is not a valid IP:Port. \n\nUsage: hn-rmnb 192.0.0.1:15600"
     fi
 }
 
 ## Hornet Node Add Neighbor
 hn-addnb() {
     #validate IP and port then remove from hornet via API
-    if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
-        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "addNeighbors", "uris": [ "tcp://'$1'" ] }' | jq --tab
+    if [[ \$1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "addNeighbors", "uris": [ "tcp://'\$1'" ] }' | jq --tab
     else
-        echo "$1 is not a valid IP:Port. \n\nUsage: hn-addnb 192.0.0.1:15600"
+        echo "\$1 is not a valid IP:Port. \n\nUsage: hn-addnb 192.0.0.1:15600"
     fi
 }
 
@@ -148,8 +148,8 @@ hn-profile () {
 
 	VALID_PROFILES=("8gb" "4gb" "2gb" "1gb" "auto")
 
-	if [[ " ${VALID_PROFILES[@]} " =~ " ${1} " ]]; then
-			jq --arg profile "$1" '.useProfile = $profile' $HORNET_BIN/config.json > /tmp/config.json && mv $HORNET_BIN/config.json $HORNET_BIN/config_history/config.json_$(date +"%Y%m%d_%H%M%S") && mv /tmp/config.json $HORNET_BIN/config.json
+	if [[ " \${VALID_PROFILES[@]} " =~ " \${1} " ]]; then
+			jq --arg profile "\$1" '.useProfile = \$profile' \$HORNET_BIN/config.json > /tmp/config.json && mv \$HORNET_BIN/config.json \$HORNET_BIN/config_history/config.json_\$(date +"%Y%m%d_%H%M%S") && mv /tmp/config.json $HORNET_BIN/config.json
 	else
 			echo "usage: hn-profile { 8gb | 4gb | 2gb | 1gb | auto }  (Use one of the valid hornet profiles)"
 	fi
@@ -158,25 +158,25 @@ hn-profile () {
 
 
 hn-update() {
-    [[ "$1$2" =~ [fF] ]] && FORCE="true"
-    [[ "$1$2" =~ [rR] ]] && RESTART="true"
+    [[ "\$1\$2" =~ [fF] ]] && FORCE="true"
+    [[ "\$1\$2" =~ [rR] ]] && RESTART="true"
 
     echo "Getting the latest version of Hornet..."
     HORNETURL=`wget -q -nv -O- https://api.github.com/repos/gohornet/hornet/releases/latest 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("Linux_ARM.")) | .browser_download_url'`
 
 
-    [[ $HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && LATESTHORNET="${BASH_REMATCH[1]}"
+    [[ \$HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && LATESTHORNET="\${BASH_REMATCH[1]}"
 
-    if [[ -f "$HORNET_SRC/$LATESTHORNET"  && $FORCE != "true" ]]; then
-        echo "You already have the latest version: $LATESTHORNET Exiting"
+    if [[ -f "\$HORNET_SRC/\$LATESTHORNET"  && \$FORCE != "true" ]]; then
+        echo "You already have the latest version: \$LATESTHORNET Exiting"
         return 0
     else
-        echo "Downloading: $HORNETURL"
-        wget -Nqc --show-progress --progress=bar:force -O "/tmp/hornet-latest.tar.gz" $HORNETURL
+        echo "Downloading: \$HORNETURL"
+        wget -Nqc --show-progress --progress=bar:force -O "/tmp/hornet-latest.tar.gz" \$HORNETURL
         echo "Unpacking..."
-        tar -xzf "/tmp/hornet-latest.tar.gz" -C $HORNET_SRC --strip-components 1 && rm /tmp/hornet-latest.tar.gz && touch "$HORNET_SRC/$LATESTHORNET"
+        tar -xzf "/tmp/hornet-latest.tar.gz" -C \$HORNET_SRC --strip-components 1 && rm /tmp/hornet-latest.tar.gz && touch "\$HORNET_SRC/\$LATESTHORNET"
 
-       if [[ $RESTART ]]; then
+       if [[ \$RESTART ]]; then
            sudo systemctl restart hornet
        fi
 
