@@ -66,6 +66,9 @@ echo "Unpacking..."
 tar -xzf "/tmp/hornet-latest.tar.gz" -C $HORNET_SRC --strip-components 1
 rm /tmp/hornet-latest.tar.gz
 
+#Put latest version file
+[[ \$HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && touch "\$HORNET_SRC/latestversion-\${BASH_REMATCH[1]}"
+
 echo -e "Downloading the latest snapshot file... ${aCOLOUR[0]}(this might take a bit)$COLOUR_RESET"
 wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin
 
@@ -90,7 +93,7 @@ chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC
 #Setup SHR remount on startup
 #sed -i '/^tmpfs \/tmp tmpfs/s/^/#/' /etc/fstab
  
-#sed -i -- '/tmpfs \/DietPi/itmpfs /dev/shm tmpfs defaults,size=100M 0 0' /etc/fstab
+#	sed -i -- '/tmpfs \/DietPi/itmpfs /dev/shm tmpfs defaults,size=100M 0 0' /etc/fstab
 
 echo "Setting up Service"
 cat > $SERVICE_FILE <<EOF2
@@ -165,7 +168,7 @@ hn-update() {
     HORNETURL=`wget -q -nv -O- https://api.github.com/repos/gohornet/hornet/releases/latest 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("Linux_ARM.")) | .browser_download_url'`
 
 
-    [[ \$HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && LATESTHORNET="\${BASH_REMATCH[1]}"
+    [[ \$HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && LATESTHORNET="latestversion-\${BASH_REMATCH[1]}"
 
     if [[ -f "\$HORNET_SRC/\$LATESTHORNET"  && \$FORCE != "true" ]]; then
         echo "You already have the latest version: \$LATESTHORNET Exiting"
@@ -174,7 +177,9 @@ hn-update() {
         echo "Downloading: \$HORNETURL"
         wget -Nqc --show-progress --progress=bar:force -O "/tmp/hornet-latest.tar.gz" \$HORNETURL
         echo "Unpacking..."
-        tar -xzf "/tmp/hornet-latest.tar.gz" -C \$HORNET_SRC --strip-components 1 && rm /tmp/hornet-latest.tar.gz && touch "\$HORNET_SRC/\$LATESTHORNET"
+		
+		#if Unpacked OK then update version file
+        tar -xzf "/tmp/hornet-latest.tar.gz" -C \$HORNET_SRC --strip-components 1 && rm /tmp/hornet-latest.tar.gz && rm "\$HORNET_SRC/latestversion-*" && touch "\$HORNET_SRC/\$LATESTHORNET"
 
        if [[ \$RESTART ]]; then
            sudo systemctl restart hornet
