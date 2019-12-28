@@ -26,6 +26,7 @@ For more info see: [Preparing Hornet config.json file](CustomizeConfigJSON.md).
 
 ### 6. Copy config.json to SD card 
 Copy the config.json file that contains your hronet neighbors and other configurations to the base directory of the SD Card (Named boot).
+If you forget to copy the config.json file to the SD card the installation will use the config.json from the Hornet repository. It will be necessary to modify this after the installation finishes and DietPi Reboots. You will see a red message during the hornet install if this is the case.
 
 ### 7. Insert SD Card into Raspberry Pi and turn it on.
 The DietPi installation should take about 10 to 20 minutes depending on your network speed and version of Pi. You will see a banner for Hornet the Hornet installation at the end.
