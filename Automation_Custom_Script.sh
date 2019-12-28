@@ -2,7 +2,12 @@
 # This script will install Hornet
 #The user can put config.json file in the /boot directory which will be copied into the hornet directory
 #This file should be installed at: /boot/Automation_Custom_Script.sh
-if [[]]
+if [[ $1 ]]; then
+	BRANCH="$1"
+else
+	BRANCH="master"
+fi
+
 BRANCH=
 COLOUR_RESET='\e[0m'
 aCOLOUR=(
