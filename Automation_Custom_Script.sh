@@ -2,17 +2,10 @@
 # This script will install Hornet
 #The user can put config.json file in the /boot directory which will be copied into the hornet directory
 #This file should be installed at: /boot/Automation_Custom_Script.sh
-if [[ $1 ]]; then
-	echo "Setting branch to: $1"
-	BRANCH="$1"
-else
-	echo "Defaulting to master branch"
-	BRANCH="master"
-fi
+HORNET_BRANCH=`grep -Po '(?<=HORNET_BRANCH=)([A-Za-z0-9]+)' /boot/dietpi.txt`
 
 echo "HORNET_BRANCH=$HORNET_BRANCH"
 
-BRANCH=
 COLOUR_RESET='\e[0m'
 aCOLOUR=(
 
