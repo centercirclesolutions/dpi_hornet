@@ -123,9 +123,68 @@ systemctl daemon-reload
 systemctl enable hornet.service
  
 
-tee -a ~/.bashrc /home/dietpi/.bashrc <<EOF3
+tee -a ~/.bashrc /home/dietpi/.bashrc > /dev/null <<EOF3
 export HORNET_SRC="$HORNET_SRC"
 export HORNET_BIN="$HORNET_BIN"
+
+#Include alias file if it exists
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+#Include hornet file if it exists
+if [ -f ~/.bash_hornet ]; then
+    . ~/.bash_hornet
+fi
+EOF3
+
+
+tee -a ~/.bash_aliases /home/dietpi/.bash_aliases > /dev/null <<EOF4
+#bash essentials
+export LS_OPTIONS='--color=auto'
+eval "\`dircolors\`"
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias grep='grep --color=auto'
+alias h='history'
+alias j='jobs -l'
+alias path='echo -e ${PATH//:/\\n}'
+alias now='date +"%T"'
+alias nowtime=now
+alias nowdate='date +"%d-%m-%Y"'
+alias vi=vim
+alias svi='sudo vi'
+alias psum='ss -s'
+alias ports='ss -aute'
+alias portsn='ss -auter'
+alias aliasf='declare -F'
+
+#apt
+alias apt-get="sudo apt-get"
+alias updatey="apt-get --yes"
+alias update='apt-get update && apt-get upgrade'
+EOF4
+
+tee -a ~/.bash_hornet /home/dietpi/.bash_hornet > /dev/null <<EOF5
+## Management Aliases
+alias hn-='alias | grep --color=never "alias hn-"; declare -F | grep --color=never "declare -f hn-"'
+alias hn-v='$HORNET_BIN/hornet -v'
+alias hn-rs='sudo systemctl restart hornet'
+alias hn-dn='sudo systemctl stop hornet'
+alias hn-up='sudo systemctl start hornet'
+alias hn-st='sudo systemctl status hornet'
+alias hn-lg='sudo journalctl -u hornet'
+alias hn-lf='hn-lg -f'
+alias hn-rmdb='sudo rm -r $HORNET_BIN/mainnetdb/*'
+alias hn-snap='sudo wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin; chown hornet:hornet $HORNET_BIN/latest-export.gz.bin'
+alias hn-repair='hn-dn; nh-rmdb ; hn-snap; hn-up'
+alias hn-inf='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNodeInfo"}'\'' |  jq --tab'
+alias hn-infn='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNeighbors"}'\'' |  jq --tab'
+
 
 ## Hornet Node Remove Neighbor
 hn-rmnb() {
@@ -187,58 +246,6 @@ hn-update() {
 
     fi
 }
-
-
-#Include alias file if it exists
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-EOF3
-
-tee -a ~/.bash_aliases /home/dietpi/.bash_aliases <<EOF4
-#bash essentials
-export LS_OPTIONS='--color=auto'
-eval "`dircolors`"
-alias ls='ls $LS_OPTIONS'
-alias ll='ls $LS_OPTIONS -l'
-alias l='ls $LS_OPTIONS -lA'
-alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-alias grep='grep --color=auto'
-alias h='history'
-alias j='jobs -l'
-alias path='echo -e ${PATH//:/\\n}'
-alias now='date +"%T"'
-alias nowtime=now
-alias nowdate='date +"%d-%m-%Y"'
-alias vi=vim
-alias svi='sudo vi'
-alias psum='ss -s'
-alias ports='ss -aute'
-alias portsn='ss -auter'
-alias aliasf='declare -F'
-
-#apt
-alias apt-get="sudo apt-get"
-alias updatey="sudo apt-get --yes"
-alias update='sudo apt-get update && sudo apt-get upgrade'
-
-#Hornet admin
-alias hn-='alias | grep --color=never "alias hn-"; declare -F | grep --color=never "declare -f hn-"'
-alias hn-v='$HORNET_BIN/hornet -v'
-alias hn-rs='sudo systemctl restart hornet'
-alias hn-dn='sudo systemctl stop hornet'
-alias hn-up='sudo systemctl start hornet'
-alias hn-st='sudo systemctl status hornet'
-alias hn-lg='sudo journalctl -u hornet'
-alias hn-lf='hn-lg -f'
-alias hn-rmdb='sudo rm -r $HORNET_BIN/mainnetdb/*'
-alias hn-snap='sudo wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin; chown hornet:hornet $HORNET_BIN/latest-export.gz.bin'
-alias hn-repair='hn-dn; nh-rmdb ; hn-snap; hn-up'
-alias hn-inf='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNodeInfo"}'\'' |  jq --tab'
-alias hn-infn='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNeighbors"}'\'' |  jq --tab'
-EOF4
-
+EOF5
  
  
