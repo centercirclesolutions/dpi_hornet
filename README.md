@@ -33,7 +33,13 @@ If you forget to copy the config.json file to the SD card the installation will 
 The DietPi installation should take about 10 to 20 minutes depending on your network speed and version of Pi. You will see a banner for Hornet the Hornet installation at the end.
 
 ### 8. Done!
-Your Pi will reboot and you can log in with User: root or dietpi and the Password in the dietpi.txt file. Remember to hange the password for both root and dietpi users. Hornet will start on boot and you can check the status and other operations with the following commands:
+Your Pi will reboot and you can log in with User: root or dietpi and the Password in the dietpi.txt file. 
+
+You can see the status of the node with either hn-st or via the API hn-inf
+![](/img/hornet-status.png)
+![](/img/hornet-info.png)
+
+Remember to change the password for both root and dietpi users. Hornet will start on boot and you can check the status and other operations with the following commands:
 
 | Command      | Description                                                                         |
 | ------------ |-------------------------------------------------------------------------------------|
