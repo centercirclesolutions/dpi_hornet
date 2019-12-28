@@ -47,7 +47,7 @@ Remember to change the password for both root and dietpi users. Hornet will star
 | hn-v         | Hornet Version |
 | hn-st        | Hornet Node Status                                                                  |
 | hn-lg        | Hornet Node Log                                                                     |
-| hn-lgf       | Hornet Node Log Follow - shows the log continously (^c to exit)                     |
+| hn-lf       | Hornet Node Log Follow - shows the log continously (^c to exit)                     |
 | hn-rs        | Hornet Node Restart                                                                 |
 | hn-up        | Hornet Node Up (Start)                                                              |
 | hn-dn        | Hornet Node Down (Stop)                                                             |
@@ -62,7 +62,7 @@ Remember to change the password for both root and dietpi users. Hornet will star
 | hn-profile   | Update Hornet profile: `hn-profile 2gb` ( you will need to restart the server for this to take effect|
 
 ### 9. Run DietPi from external SSD
-Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automoate this. 
+Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automate this. 
 
 **Provide Examples TBD**
 `dietpi-drive_manager`
