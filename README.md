@@ -36,6 +36,7 @@ Your Pi will reboot and you can log in with User: root or dietpi and the Passwor
 | Command      | Description                                                                         |
 | ------------ |-------------------------------------------------------------------------------------|
 | hn-          | List all Hornet Node commands   |
+| hn-v         | Hornet Version |
 | hn-st        | Hornet Node Status                                                                  |
 | hn-lg        | Hornet Node Log                                                                     |
 | hn-lgf       | Hornet Node Log Follow - shows the log continously (^c to exit)                     |
