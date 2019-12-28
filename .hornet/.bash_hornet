@@ -1,0 +1,76 @@
+## Management Aliases
+alias hn-='alias | grep --color=never "alias hn-"; declare -F | grep --color=never "declare -f hn-"'
+alias hn-v='$HORNET_BIN/hornet -v'
+alias hn-rs='sudo systemctl restart hornet'
+alias hn-dn='sudo systemctl stop hornet'
+alias hn-up='sudo systemctl start hornet'
+alias hn-st='sudo systemctl status hornet'
+alias hn-lg='sudo journalctl -u hornet'
+alias hn-lf='hn-lg -f'
+alias hn-rmdb='sudo rm -r $HORNET_BIN/mainnetdb/*'
+alias hn-snap='sudo wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin; chown hornet:hornet $HORNET_BIN/latest-export.gz.bin'
+alias hn-repair='hn-dn; nh-rmdb ; hn-snap; hn-up'
+alias hn-inf='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNodeInfo"}'\'' |  jq --tab'
+alias hn-infn='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNeighbors"}'\'' |  jq --tab'
+
+## Management functions
+# Hornet Node Remove Neighbor
+hn-rmnb() {
+    #validate IP and port then remove from hornet via API
+    if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "removeNeighbors", "uris": [ "tcp://'\$1'" ] }' | jq --tab
+    else
+        echo "$1 is not a valid IP:Port. \n\nUsage: hn-rmnb 192.0.0.1:15600"
+    fi
+}
+
+# Hornet Node Add Neighbor
+hn-addnb() {
+    #validate IP and port then remove from hornet via API
+    if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "addNeighbors", "uris": [ "tcp://'$1'" ] }' | jq --tab
+    else
+        echo "$1 is not a valid IP:Port. \n\nUsage: hn-addnb 192.0.0.1:15600"
+    fi
+}
+
+hn-profile () {
+
+	VALID_PROFILES=("8gb" "4gb" "2gb" "1gb" "auto")
+
+	if [[ " ${VALID_PROFILES[@]} " =~ " ${1} " ]]; then
+			jq --arg profile "$1" '.useProfile = $profile' $HORNET_BIN/config.json > /tmp/config.json && mv $HORNET_BIN/config.json $HORNET_BIN/config_history/config.json_$(date +"%Y%m%d_%H%M%S") && mv /tmp/config.json $HORNET_BIN/config.json
+	else
+			echo "usage: hn-profile { 8gb | 4gb | 2gb | 1gb | auto }  (Use one of the valid hornet profiles)"
+	fi
+
+}
+
+# Hornet Node perform update to new version
+hn-update() {
+    [[ "$1$2" =~ [fF] ]] && FORCE="true"
+    [[ "$1$2" =~ [rR] ]] && RESTART="true"
+
+    echo "Getting the latest version of Hornet..."
+    HORNETURL=`wget -q -nv -O- https://api.github.com/repos/gohornet/hornet/releases/latest 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("Linux_ARM.")) | .browser_download_url'`
+
+
+    [[ $HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && LATESTHORNET="latestversion-${BASH_REMATCH[1]}"
+
+    if [[ -f "$HORNET_SRC/$LATESTHORNET"  && $FORCE != "true" ]]; then
+        echo "You already have the latest version: $LATESTHORNET Exiting"
+        return 0
+    else
+        echo "Downloading: $HORNETURL"
+        wget -Nqc --show-progress --progress=bar:force -O "/tmp/hornet-latest.tar.gz" $HORNETURL
+        echo "Unpacking..."
+		
+		#if Unpacked OK then update version file
+        tar -xzf "/tmp/hornet-latest.tar.gz" -C $HORNET_SRC --strip-components 1 && rm /tmp/hornet-latest.tar.gz && rm "$HORNET_SRC/latestversion-*" && touch "$HORNET_SRC/$LATESTHORNET"
+
+       if [[ $RESTART ]]; then
+           sudo systemctl restart hornet
+       fi
+
+    fi
+}

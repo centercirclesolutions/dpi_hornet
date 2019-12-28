@@ -2,6 +2,8 @@
 # This script will install Hornet
 #The user can put config.json file in the /boot directory which will be copied into the hornet directory
 #This file should be installed at: /boot/Automation_Custom_Script.sh
+if [[]]
+BRANCH=
 COLOUR_RESET='\e[0m'
 aCOLOUR=(
 
@@ -96,7 +98,7 @@ chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC
 #	sed -i -- '/tmpfs \/DietPi/itmpfs /dev/shm tmpfs defaults,size=100M 0 0' /etc/fstab
 
 echo "Setting up Service"
-cat > $SERVICE_FILE <<EOF2
+cat > $SERVICE_FILE <<EOF1
 [Unit]
 Description=HORNET Fullnode
 After=network.target
@@ -116,14 +118,16 @@ Group=$HORNETUSER
 
 [Install]
 WantedBy=multi-user.target
-EOF2
+EOF1
 
-echo "Enabeling Services... Hornet Service will start on reboot"
+echo "Enabling Services... Hornet Service will start on reboot"
 systemctl daemon-reload 
 systemctl enable hornet.service
+
+git clone 
  
 
-tee -a ~/.bashrc /home/dietpi/.bashrc > /dev/null <<EOF3
+tee -a ~/.bashrc /home/dietpi/.bashrc > /dev/null <<EOF2
 export HORNET_SRC="$HORNET_SRC"
 export HORNET_BIN="$HORNET_BIN"
 
@@ -136,116 +140,6 @@ fi
 if [ -f ~/.bash_hornet ]; then
     . ~/.bash_hornet
 fi
-EOF3
+EOF2
 
 
-tee -a ~/.bash_aliases /home/dietpi/.bash_aliases > /dev/null <<EOF4
-#bash essentials
-export LS_OPTIONS='--color=auto'
-eval "\`dircolors\`"
-alias ls='ls $LS_OPTIONS'
-alias ll='ls $LS_OPTIONS -l'
-alias l='ls $LS_OPTIONS -lA'
-alias ..='cd ..'
-alias ...='cd ../../../'
-alias ....='cd ../../../../'
-alias grep='grep --color=auto'
-alias h='history'
-alias j='jobs -l'
-alias path='echo -e ${PATH//:/\\n}'
-alias now='date +"%T"'
-alias nowtime=now
-alias nowdate='date +"%d-%m-%Y"'
-alias vi=vim
-alias svi='sudo vi'
-alias psum='ss -s'
-alias ports='ss -aute'
-alias portsn='ss -auter'
-alias aliasf='declare -F'
-
-#apt
-alias apt-get="sudo apt-get"
-alias updatey="apt-get --yes"
-alias update='apt-get update && apt-get upgrade'
-EOF4
-
-tee -a ~/.bash_hornet /home/dietpi/.bash_hornet > /dev/null <<EOF5
-## Management Aliases
-alias hn-='alias | grep --color=never "alias hn-"; declare -F | grep --color=never "declare -f hn-"'
-alias hn-v='$HORNET_BIN/hornet -v'
-alias hn-rs='sudo systemctl restart hornet'
-alias hn-dn='sudo systemctl stop hornet'
-alias hn-up='sudo systemctl start hornet'
-alias hn-st='sudo systemctl status hornet'
-alias hn-lg='sudo journalctl -u hornet'
-alias hn-lf='hn-lg -f'
-alias hn-rmdb='sudo rm -r $HORNET_BIN/mainnetdb/*'
-alias hn-snap='sudo wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin; chown hornet:hornet $HORNET_BIN/latest-export.gz.bin'
-alias hn-repair='hn-dn; nh-rmdb ; hn-snap; hn-up'
-alias hn-inf='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNodeInfo"}'\'' |  jq --tab'
-alias hn-infn='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNeighbors"}'\'' |  jq --tab'
-
-
-## Hornet Node Remove Neighbor
-hn-rmnb() {
-    #validate IP and port then remove from hornet via API
-    if [[ \$1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+\$ ]]; then
-        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "removeNeighbors", "uris": [ "tcp://'\$1'" ] }' | jq --tab
-    else
-        echo "\$1 is not a valid IP:Port. \n\nUsage: hn-rmnb 192.0.0.1:15600"
-    fi
-}
-
-## Hornet Node Add Neighbor
-hn-addnb() {
-    #validate IP and port then remove from hornet via API
-    if [[ \$1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+\$ ]]; then
-        curl -s http://127.0.0.1:14265 -X POST -H 'Content-Type: application/json' -H 'X-IOTA-API-Version: 1' -d '{ "command": "addNeighbors", "uris": [ "tcp://'\$1'" ] }' | jq --tab
-    else
-        echo "\$1 is not a valid IP:Port. \n\nUsage: hn-addnb 192.0.0.1:15600"
-    fi
-}
-
-hn-profile () {
-
-	VALID_PROFILES=("8gb" "4gb" "2gb" "1gb" "auto")
-
-	if [[ " \${VALID_PROFILES[@]} " =~ " \${1} " ]]; then
-			jq --arg profile "\$1" '.useProfile = \$profile' \$HORNET_BIN/config.json > /tmp/config.json && mv \$HORNET_BIN/config.json \$HORNET_BIN/config_history/config.json_\$(date +"%Y%m%d_%H%M%S") && mv /tmp/config.json \$HORNET_BIN/config.json
-	else
-			echo "usage: hn-profile { 8gb | 4gb | 2gb | 1gb | auto }  (Use one of the valid hornet profiles)"
-	fi
-
-}
-
-
-hn-update() {
-    [[ "\$1\$2" =~ [fF] ]] && FORCE="true"
-    [[ "\$1\$2" =~ [rR] ]] && RESTART="true"
-
-    echo "Getting the latest version of Hornet..."
-    HORNETURL=`wget -q -nv -O- https://api.github.com/repos/gohornet/hornet/releases/latest 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("Linux_ARM.")) | .browser_download_url'`
-
-
-    [[ \$HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && LATESTHORNET="latestversion-\${BASH_REMATCH[1]}"
-
-    if [[ -f "\$HORNET_SRC/\$LATESTHORNET"  && \$FORCE != "true" ]]; then
-        echo "You already have the latest version: \$LATESTHORNET Exiting"
-        return 0
-    else
-        echo "Downloading: \$HORNETURL"
-        wget -Nqc --show-progress --progress=bar:force -O "/tmp/hornet-latest.tar.gz" \$HORNETURL
-        echo "Unpacking..."
-		
-		#if Unpacked OK then update version file
-        tar -xzf "/tmp/hornet-latest.tar.gz" -C \$HORNET_SRC --strip-components 1 && rm /tmp/hornet-latest.tar.gz && rm "\$HORNET_SRC/latestversion-*" && touch "\$HORNET_SRC/\$LATESTHORNET"
-
-       if [[ \$RESTART ]]; then
-           sudo systemctl restart hornet
-       fi
-
-    fi
-}
-EOF5
- 
- 
