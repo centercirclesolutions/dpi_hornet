@@ -90,7 +90,7 @@ chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC
 #Setup SHR remount on startup
 #sed -i '/^tmpfs \/tmp tmpfs/s/^/#/' /etc/fstab
  
-sed -i -- '/tmpfs \/DietPi/itmpfs /dev/shm tmpfs defaults,size=100M 0 0' /etc/fstab
+#sed -i -- '/tmpfs \/DietPi/itmpfs /dev/shm tmpfs defaults,size=100M 0 0' /etc/fstab
 
 echo "Setting up Service"
 cat > $SERVICE_FILE <<EOF2
