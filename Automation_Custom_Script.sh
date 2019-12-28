@@ -3,8 +3,10 @@
 #The user can put config.json file in the /boot directory which will be copied into the hornet directory
 #This file should be installed at: /boot/Automation_Custom_Script.sh
 if [[ $1 ]]; then
+	echo "Setting branch to: $1"
 	BRANCH="$1"
 else
+	echo "Defaulting to master branch"
 	BRANCH="master"
 fi
 
@@ -129,21 +131,24 @@ echo "Enabling Services... Hornet Service will start on reboot"
 systemctl daemon-reload 
 systemctl enable hornet.service
 
-git clone 
- 
+#Get Hornet script files
+mkdir /root/.hornet /home/dietpi/.hornet
+curl 'https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/$BRANCH/.hornet/{.bash_aliases,.bash_hornet}' -o "/root/.hornet/#1"
+cp /root/.hornet/* /home/dietpi/.hornet/
+chown -R dietpi:dietpi /home/dietpi/.hornet
 
 tee -a ~/.bashrc /home/dietpi/.bashrc > /dev/null <<EOF2
 export HORNET_SRC="$HORNET_SRC"
 export HORNET_BIN="$HORNET_BIN"
 
 #Include alias file if it exists
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f ~/.hornet/.bash_aliases ]; then
+    . ~/.hornet/.bash_aliases
 fi
 
 #Include hornet file if it exists
-if [ -f ~/.bash_hornet ]; then
-    . ~/.bash_hornet
+if [ -f ~/.hornet/.bash_hornet ]; then
+    . ~/.hornet/.bash_hornet
 fi
 EOF2
 
