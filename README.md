@@ -11,6 +11,14 @@ All scripts and config files used (`Automation_Custom_Script.sh` and `dietpi.txt
 
 ## Instructions
 
+### TLDR
+| 1. | Download and Flash to SD [DietPi_RPi-ARMv6-Buster.7z](https://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Buster.7z) |
+| 2. | Download and Modify and copy to SD root [dietpi.txt](https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/master/dietpi.txt)
+| 3. | Copy your config.json to SD root (make sure it's the latest version)|
+| 4. | Boot and enjoy |
+
+### Detailed Steps
+
 ### 1. Download DietPi for Raspberry Pi.
 [DietPi_RPi-ARMv6-Buster.7z](https://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Buster.7z) (This image will work for both Pi 3 & 4).
 
@@ -20,13 +28,13 @@ All scripts and config files used (`Automation_Custom_Script.sh` and `dietpi.txt
 
 ### 3. Download and customize dietpi.txt.
 Download the dietpi.txt file from this repository and prepare / customize it for your Raspberry Pi.<br>
-For more info see: [Preparing the dietpi.txt File](CustomizeDietPiFile.md).
+For more info see: [Preparing the dietpi.txt File](/docs/CustomizeDietPiFile.md).
 
 ### 4. Copy dietpi.txt to the SD card
 Copy the customized dietpi.txt file to the base directory of the SD card (Named boot) you will be asked if you want to replace the existing file and you should.
 
 ### 5. Prepare Hornet config.json file.
-For more info see: [Preparing Hornet config.json file](CustomizeConfigJSON.md).
+For more info see: [Preparing Hornet config.json file](/docs/CustomizeConfigJSON.md).
 
 ### 6. Copy config.json to SD card 
 Copy the config.json file that contains your hronet neighbors and other configurations to the base directory of the SD Card (Named boot).
