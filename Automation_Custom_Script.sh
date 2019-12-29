@@ -2,9 +2,7 @@
 # This script will install Hornet
 #The user can put config.json file in the /boot directory which will be copied into the hornet directory
 #This file should be installed at: /boot/Automation_Custom_Script.sh
-HORNET_BRANCH=`grep -Po '(?<=HORNET_BRANCH=)([A-Za-z0-9]+)' /boot/dietpi.txt`
-
-echo "HORNET_BRANCH=$HORNET_BRANCH"
+DPIH_BRANCH=`grep -Po '(?<=HORNET_BRANCH=)([A-Za-z0-9]+)' /boot/dietpi.txt`
 
 COLOUR_RESET='\e[0m'
 aCOLOUR=(
@@ -32,19 +30,19 @@ echo -e "${aCOLOUR[1]}${GREEN_BULLET} IOTA Full Node                            
 echo -e "${GREEN_LINE}"
 echo ""
 
-echo "Installing Tools"
-apt-get install -qq -y jq
+echo -e '\e[90m[\e[0m INFO \e[90m]\e[0m Hornet   | Installing support software jq and less'
+
+#Apt Retry 3 times
+echo "APT::Acquire::Retries \"3\";" > "/etc/apt/apt.conf.d/80-retries"
+
+apt install -y jq less > /dev/null
 
 #Install Error handeling
 if ! [ -x "$(command -v jq)" ]; then
-  echo 'Problem installing... trying one more time' >&2
-
-  apt-get install -qq -y jq
-
-  if ! [ -x "$(command -v jq)" ]; then
-    echo 'Error: softare did not install' >&2
+	echo -e '[\e[31mFAILED\e[0m] Hornet | Failed to Load jq and less Hornet will not be installed...'
     exit 1
-  fi
+else
+	echo -e '[\e[32m  OK  \e[0m] Installed jq and less.'
 fi
 
 #GLOBAL###############################################
@@ -53,27 +51,25 @@ HORNET_BIN="/opt/hornet"
 SERVICE_FILE="/etc/systemd/system/hornet.service"
 HORNETUSER=hornet
 ######################################################
-
-echo "Add 'hornet' system user/group and create directories"
+echo -e '\e[90m[\e[0m INFO \e[90m]\e[0m Hornet   | Creating user and group'
 adduser --system --group --no-create-home $HORNETUSER
 mkdir $HORNET_SRC
 mkdir $HORNET_BIN
 mkdir $HORNET_BIN/config_history
 
-chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC
+chown -R $HORNETUSER:$HORNETUSER $HORNET_BIN $HORNET_SRC && echo -e '[\e[32m  OK  \e[0m] Hornet user and group Created'
  
-echo "Getting the latest version of Hornet..."
+echo -e '\e[90m[\e[0m INFO \e[90m]\e[0m Hornet   | Getting the latest version'
 HORNETURL=`wget -q -nv -O- https://api.github.com/repos/gohornet/hornet/releases/latest 2>/dev/null |  jq -r '.assets[] | select(.browser_download_url | contains("Linux_ARM.")) | .browser_download_url'`
-echo "Downloading: $HORNETURL"
+echo -e '\e[90m[\e[0m INFO \e[90m]\e[0m Hornet   | Downloading Version: '$HORNETURL
 wget -Nqc --show-progress --progress=bar:force -O "/tmp/hornet-latest.tar.gz" $HORNETURL
-echo "Unpacking..."
-tar -xzf "/tmp/hornet-latest.tar.gz" -C $HORNET_SRC --strip-components 1
-rm /tmp/hornet-latest.tar.gz
+tar -xzf "/tmp/hornet-latest.tar.gz" -C $HORNET_SRC --strip-components 1 && rm /tmp/hornet-latest.tar.gz && echo -e '[\e[32m  OK  \e[0m] Hornet Installed'
 
 #Put latest version file
 [[ \$HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && touch "\$HORNET_SRC/latestversion-\${BASH_REMATCH[1]}"
 
-echo -e "Downloading the latest snapshot file... ${aCOLOUR[0]}(this might take a bit)$COLOUR_RESET"
+echo -e '\e[90m[\e[0m INFO \e[90m]\e[0m Hornet   | Getting latest snapshot file... \e[1m(this might take a bit)\e[0m'
+
 wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin
 
 if [ ! -f  "$HORNET_BIN/latest-export.gz.bin" ]; then
@@ -128,7 +124,7 @@ systemctl enable hornet.service
 
 #Get Hornet script files
 mkdir /root/.hornet /home/dietpi/.hornet
-curl 'https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/$BRANCH/.hornet/{.bash_aliases,.bash_hornet}' -o "/root/.hornet/#1"
+curl "https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/$DPIH_BRANCH/.hornet/{.bash_aliases,.bash_hornet}" -o "/root/.hornet/#1"
 cp /root/.hornet/* /home/dietpi/.hornet/
 chown -R dietpi:dietpi /home/dietpi/.hornet
 
