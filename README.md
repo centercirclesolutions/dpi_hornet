@@ -5,6 +5,10 @@ Below are the instructions to install the software. During installation DietPi w
 
 All scripts and config files used (`Automation_Custom_Script.sh` and `dietpi.txt`) are in this repo and available for you to review. If you find any issues please add an issue (or feature). You may PM me  Dave [EF]  on Discord but since I am timzone challanged I may take several hours to get back on issues. Feel free to provide Updates and Pull requests as well.
 
+*Update The more I've tested with the standard DietPi running on Pi4 4GB is believe the safe profile to run under is '2gb' during the initial sync if '4gb' is used it will almost consistantly encounter the OOM (OUt of Memory) panic.*
+
+*In a future release I plan to have the install script look for a `DietPi_Tweak.sh` in the boot directory that can have whatever memory and disk optimizations you want applied during installation (and perhaps after Upgrades)*
+
 ## Instructions
 
 ### 1. Download DietPi for Raspberry Pi.
@@ -59,7 +63,7 @@ Remember to change the password for both root and dietpi users. Hornet will star
 | hn-addnb     | Hornet Node Add Neighbor (API)                                                      |
 | hn-remnb     | Hornet Node Remove Neighbor (API)                                                   | 
 | hn-update    | Update Hornet: `hn-update [-fr]` <br> -f Update even if same version<br> -r Restart Hornet after update|
-| hn-profile   | Update Hornet profile: `hn-profile 2gb` ( you will need to restart the server for this to take effect|
+| hn-profile   | Update Hornet profile: `hn-profile -r 2gb` update the profile to 2gb and restart Hornet|
 
 ### 9. Run DietPi from external SSD
 Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automoate this. 
