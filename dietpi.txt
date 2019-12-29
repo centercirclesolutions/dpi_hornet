@@ -63,7 +63,6 @@ AUTO_UNMASK_LOGIND=0
 # - Executed script log: /var/tmp/dietpi/logs/dietpi-automation_custom_script.log
 
 ######### HORNET ###########
-HORNET_BRANCH=beta    
 AUTO_SETUP_CUSTOM_SCRIPT_EXEC=https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/beta/Automation_Custom_Script.sh
 ############################
 
