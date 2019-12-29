@@ -112,7 +112,7 @@ Group=$HORNETUSER
 WantedBy=multi-user.target
 EOF1
 
-systemctl daemon-reload && systemctl enable hornet.service && echo -e '[\e[32m  OK  \e[0m] Hornet   | Configured and Enabled Hornet Service' || echo -e '[\e[31mFAILED\e[0m] Hornet   | Problem enabling Hornet Service'
+systemctl daemon-reload && systemctl enable hornet.service && echo -e '[\e[32m  OK  \e[0m] Hornet   | Configured and Enabled Hornet Service' || echo -e '[\e[31mFAILED\e[0m] Hornet   | Problem Enabling Hornet Service'
 
 #Get Hornet script files
 mkdir /root/.hornet /home/dietpi/.hornet
