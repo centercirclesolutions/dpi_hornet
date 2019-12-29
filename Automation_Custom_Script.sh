@@ -117,7 +117,7 @@ systemctl daemon-reload && systemctl enable hornet.service && echo -e '[\e[32m  
 #Get Hornet script files
 mkdir /root/.hornet /home/dietpi/.hornet
 curl -s "https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/$DPIH_BRANCH/.hornet/{.bash_aliases,.bash_hornet}" -o "/root/.hornet/#1" || echo -e '[\e[31mFAILED\e[0m] Hornet   | Failed to get Hornet admin scripts'
-cp -r /root/.hornet/ /home/dietpi/.hornet/
+cp -r /root/.hornet/ /home/dietpi/
 chown -R dietpi:dietpi /home/dietpi/.hornet
 
 tee -a ~/.bashrc /home/dietpi/.bashrc > /dev/null <<EOF2
