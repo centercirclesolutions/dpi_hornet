@@ -28,7 +28,7 @@ All scripts and config files used (`Automation_Custom_Script.sh` and `dietpi.txt
 #### My Favorite ([Rufus](https://rufus.ie/)).
 
 ### 3. Download and customize dietpi.txt.
-Download the dietpi.txt file from this repository and prepare / customize it for your Raspberry Pi.<br>
+Download the dietpi.txt file from this repository (make sure to use raw format) and prepare / customize it for your Raspberry Pi.<br>
 For more info see: [Preparing the dietpi.txt File](/docs/CustomizeDietPiFile.md).
 
 ### 4. Copy dietpi.txt to the SD card
