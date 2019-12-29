@@ -51,7 +51,7 @@ Remember to change the password for both root and dietpi users. Hornet will star
 | hn-v         | Hornet Version |
 | hn-st        | Hornet Node Status                                                                  |
 | hn-lg        | Hornet Node Log                                                                     |
-| hn-lgf       | Hornet Node Log Follow - shows the log continously (^c to exit)                     |
+| hn-lf       | Hornet Node Log Follow - shows the log continously (^c to exit)                     |
 | hn-rs        | Hornet Node Restart                                                                 |
 | hn-up        | Hornet Node Up (Start)                                                              |
 | hn-dn        | Hornet Node Down (Stop)                                                             |
