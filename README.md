@@ -66,7 +66,7 @@ Remember to change the password for both root and dietpi users. Hornet will star
 | hn-profile   | Update Hornet profile: `hn-profile -r 2gb` update the profile to 2gb and restart Hornet|
 
 ### 9. Run DietPi from external SSD
-Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automoate this. 
+Since the hornet node reads and writes from disk frequently and has extensive logging it will be almost necessary to run the hornet node from an external SDD. Luckily DietPi has a configuration tool to automate this. 
 
 **Provide Examples TBD**
 `dietpi-drive_manager`
