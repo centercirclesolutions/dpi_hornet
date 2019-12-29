@@ -30,6 +30,9 @@ echo -e "${aCOLOUR[1]}${GREEN_BULLET} IOTA Full Node                            
 echo -e "${GREEN_LINE}"
 echo ""
 
+[[ $DPIH_BRANCH = "master" ]] && BC="${aCOLOUR[1]}" || BC="${aCOLOUR[3]}"
+echo -e '\e[90m[\e[0m INFO \e[90m]\e[0m Hornet   | Using Installer Branch ['$BC$DPIH_BRANCH'\e[0m]'
+
 echo -e '\e[90m[\e[0m INFO \e[90m]\e[0m Hornet   | Installing support software jq and less'
 
 #Apt Retry 3 times
