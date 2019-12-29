@@ -35,13 +35,18 @@ hn-addnb() {
 }
 
 hn-profile () {
-
-	VALID_PROFILES=("8gb" "4gb" "2gb" "1gb" "auto")
+	VALID_PROFILES=("8gb" "4gb" "2gb" "1gb" "auto", "custom")
+	[[ "$1$2" =~ [rR] ]] && RESTART="true"
 
 	if [[ " ${VALID_PROFILES[@]} " =~ " ${1} " ]]; then
 			jq --arg profile "$1" '.useProfile = $profile' $HORNET_BIN/config.json > /tmp/config.json && mv $HORNET_BIN/config.json $HORNET_BIN/config_history/config.json_$(date +"%Y%m%d_%H%M%S") && mv /tmp/config.json $HORNET_BIN/config.json
+
+       if [[ $RESTART ]]; then
+           sudo systemctl restart hornet
+       fi
+
 	else
-			echo "usage: hn-profile { 8gb | 4gb | 2gb | 1gb | auto }  (Use one of the valid hornet profiles)"
+			echo "usage: hn-profile [ -r ] { 8gb | 4gb | 2gb | 1gb | auto }  (Use one of the valid hornet profiles -r to restart Hornet after change)"
 	fi
 
 }
