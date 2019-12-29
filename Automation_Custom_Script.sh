@@ -78,7 +78,7 @@ fi
 ln -s $HORNET_SRC/hornet $HORNET_BIN/hornet
 
 if [ -f /boot/config.json ]; then
-	echo -e '[\e[32m  OK  \e[0m] Hornet   | Using user suppid config..json'
+	echo -e '[\e[32m  OK  \e[0m] Hornet   | Using user supplied config.json'
 	cp -f /boot/config.json $HORNET_BIN/config.json
 else
 	echo -e '[\e[31mFAILED\e[0m] Hornet   | Could not find config.json using hornet default'
