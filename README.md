@@ -5,7 +5,7 @@ Below are the instructions to install the software. During installation DietPi w
 
 All scripts and config files used (`Automation_Custom_Script.sh` and `dietpi.txt`) are in this repo and available for you to review. If you find any issues please add an issue (or feature). You may PM me  Dave [EF]  on Discord but since I am timzone challanged I may take several hours to get back on issues. Feel free to provide Updates and Pull requests as well.
 
-*Update: The more I've tested with the standard DietPi running on Pi4 4GB is believe the safe profile to run under is '2gb' during the initial sync if '4gb' is used it will almost consistantly encounter the OOM (OUt of Memory) panic.*
+**Update:** *The more I've tested with the standard DietPi running on Pi4 4GB is believe the safe profile to run under is '2gb' during the initial sync if '4gb' is used it will almost consistantly encounter the OOM (OUt of Memory) panic.*
 
 *In a future release I plan to have the install script look for a `DietPi_Tweak.sh` in the boot directory that can have whatever memory and disk optimizations you want applied during installation (and perhaps after Upgrades)*
 
