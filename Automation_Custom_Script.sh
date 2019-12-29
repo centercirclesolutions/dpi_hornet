@@ -64,7 +64,7 @@ wget -Nqc --show-progress --progress=bar:force -O "/tmp/hornet-latest.tar.gz" $H
 tar -xzf "/tmp/hornet-latest.tar.gz" -C $HORNET_SRC --strip-components 1 && rm /tmp/hornet-latest.tar.gz && echo -e '[\e[32m  OK  \e[0m] Hornet   | Hornet Installed'
 
 #Put latest version file
-[[ \$HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && touch "$HORNET_SRC/latestversion-${BASH_REMATCH[1]}"
+[[ $HORNETURL =~ .*(HORNET.+)\.tar\.gz  ]] && touch "$HORNET_SRC/latestversion-${BASH_REMATCH[1]}"
 
 echo -e '\e[90m[\e[0m INFO \e[90m]\e[0m Hornet   | Getting latest snapshot file... \e[1m(this might take a bit)\e[0m'
 
