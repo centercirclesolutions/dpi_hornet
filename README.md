@@ -11,10 +11,11 @@ All scripts and config files used (`Automation_Custom_Script.sh` and `dietpi.txt
 
 ## Instructions
 
-### TLDR
-| 1. | Download and Flash to SD [DietPi_RPi-ARMv6-Buster.7z](https://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Buster.7z) |
-| 2. | Download and Modify and copy to SD root [dietpi.txt](https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/master/dietpi.txt)|
-| 3. | Copy your config.json to SD root (make sure it's the latest version)|
+| # | TLDR|
+| --- | --- |
+| 1. | Download [DietPi_RPi-ARMv6-Buster.7z](https://dietpi.com/downloads/images/DietPi_RPi-ARMv6-Buster.7z) and Flash to the SD card|
+| 2. | Download [dietpi.txt](https://raw.githubusercontent.com/centercirclesolutions/dpi_hornet/master/dietpi.txt), modify and copy to SD root directory|
+| 3. | Copy your config.json to SD root directory (make sure it's the latest version)|
 | 4. | Boot and enjoy |
 
 ### Detailed Steps
