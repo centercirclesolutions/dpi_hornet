@@ -3,7 +3,7 @@ This is an attempt at automating the installation of Hornet for the Raspberry Pi
 
 Below are the instructions to install the software. During installation DietPi will load the latest (Automation_Custom_Script.sh) from this repository and run it only during the initial installation.
 
-All scripts and config files used (`Automation_Custom_Script.sh` and `dietpi.txt`) are in this repo and available for you to review. If you find any issues please add an issue (or feature). You may PM me  Dave [EF]  on Discord but since I am timzone challanged I may take several hours to get back on issues. Feel free to provide Updates and Pull requests as well.
+All scripts and config files used (`Automation_Custom_Script.sh` and `dietpi.txt` and the `.hornet` directory) are in this repo and available for you to review. If you find any issues please add an issue (or feature). You may PM me  Dave [EF]  on Discord but since I am timzone challanged I may take several hours to get back on issues. Feel free to provide Updates and Pull requests as well.
 
 **Update:** *The more I've tested with the standard DietPi running on Pi4 4GB is believe the safe profile to run under is '2gb' during the initial sync if '4gb' is used it will almost consistantly encounter the OOM (Out of Memory) panic.*
 
