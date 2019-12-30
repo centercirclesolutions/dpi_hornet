@@ -9,6 +9,7 @@ G_WHIP_MENU_ARRAY+=('Playbook' ': Install Hornet Playbook')
 G_WHIP_MENU_ARRAY+=('DietPi' ': Install Only DietPi')
 
 G_WHIP_DEFAULT_ITEM=1
+G_INTERACTIVE=1
 
 if G_WHIP_MENU "Select the type of installation"; then
 	if [$G_WHIP_RETURNED_VALUE == "Playbook"]; then
