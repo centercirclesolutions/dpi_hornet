@@ -11,14 +11,13 @@ G_WHIP_MENU_ARRAY+=('DietPi' ': Install Only DietPi')
 G_WHIP_DEFAULT_ITEM=1
 
 if G_WHIP_MENU "Select the type of installation"; then
-	if $G_WHIP_RETURNED_VALUE == "Playbook"; then
+	if [$G_WHIP_RETURNED_VALUE == "Playbook"]; then
 		echo "Installing Playbook"
-	elif $G_WHIP_RETURNED_VALUE == "DietPi" then
+	elif [$G_WHIP_RETURNED_VALUE == "DietPi"]; then
 		echo "Installing DietPi Only"
-	
 	else
 		echo "Installing Hornet"
-	fi
+		fi
 else
 	echo "Canceled, Installing only DietPi"
 	exit
