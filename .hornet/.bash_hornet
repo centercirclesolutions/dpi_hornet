@@ -9,7 +9,7 @@ alias hn-lg='sudo journalctl -u hornet'
 alias hn-lf='hn-lg -f'
 alias hn-rmdb='sudo rm -r $HORNET_BIN/mainnetdb/*'
 alias hn-snap='sudo wget -Nqc --show-progress --progress=bar:force -O "$HORNET_BIN/latest-export.gz.bin" https://dbfiles.iota.org/mainnet/hornet/latest-export.gz.bin; chown hornet:hornet $HORNET_BIN/latest-export.gz.bin'
-alias hn-repair='hn-dn; nh-rmdb ; hn-snap; hn-up'
+alias hn-repair='hn-dn; hn-rmdb ; hn-snap; hn-up'
 alias hn-inf='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNodeInfo"}'\'' |  jq --tab'
 alias hn-infn='curl -s http://127.0.0.1:14265 -X POST -H '\''Content-Type: application/json'\'' -H '\''X-IOTA-API-Version: 1'\'' -d '\''{"command":"getNeighbors"}'\'' |  jq --tab'
 
