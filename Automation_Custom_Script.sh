@@ -4,6 +4,27 @@
 #This file should be installed at: /boot/Automation_Custom_Script.sh
 DPIH_BRANCH=`grep -Po '(?<=/dpi_hornet/)([A-Za-z0-9]+)(?=/Automation_Custom_Script.sh)' /boot/dietpi.txt`
 
+G_WHIP_MENU_ARRAY=('Hornet' ': Install Minimal footprint with only Hornet Node')
+G_WHIP_MENU_ARRAY+=('Playbook' ': Install Hornet Playbook')
+G_WHIP_MENU_ARRAY+=('DietPi' ': Install Only DietPi')
+
+G_WHIP_DEFAULT_ITEM=1
+
+if G_WHIP_MENU "Select the type of installation"; then
+	if $G_WHIP_RETURNED_VALUE == "Playbook"; then
+		echo "Installing Playbook"
+	elif $G_WHIP_RETURNED_VALUE == "DietPi" then
+		echo "Installing DietPi Only"
+	
+	else
+		echo "Installing Hornet"
+	fi
+else
+	echo "Canceled, Installing only DietPi"
+	exit
+fi
+
+
 COLOUR_RESET='\e[0m'
 aCOLOUR=(
 
